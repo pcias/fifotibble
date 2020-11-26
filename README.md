@@ -1,10 +1,10 @@
 # README #
 
-This is an R package
+This is an R package with simple fifo valution helpers
 
 ### What is this repository for? ###
 
-* This is a set of couple fucntions to help fifo valuation of entries in an R tibble
+* This is a set of couple functions to help fifo valuation of entries in an R tibble
 * 0.1.1
 
 
@@ -14,8 +14,8 @@ This is an R package
 
 ### Contribution guidelines ###
 
-* There are basic unit tests far from final. 
-* The the main 'fifotibble' function is extesively step-by-step commented to show by example its working. 
+* There are basic unit tests far from final
+* The the main 'fifotibble' function is extesively step-by-step commented to show by example its working 
 * See also the tests as they demonstrate the basic usage
 
 ### Who do I talk to? ###
