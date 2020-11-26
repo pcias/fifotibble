@@ -1,29 +1,23 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This is an R package
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* This is a set of couple fucntions to help fifo valuation of entries in an R tibble
+* 0.1.1
+
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* We'll put it on CRAN
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* There are basic unit tests far from final. 
+* The the main 'fifotibble' function is extesively step-by-step commented to show by example its working. 
+* See also the tests as they demonstrate the basic usage
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* repo owner: przemyslaw.cias@gmail.com
