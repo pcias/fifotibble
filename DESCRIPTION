@@ -12,3 +12,5 @@ Imports:
   dplyr, 
   tibble
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat
