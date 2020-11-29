@@ -20,4 +20,4 @@ This is an R package with simple fifo valution helpers
 
 ### Who do I talk to? ###
 
-* repo owner: przemyslaw.cias@gmail.com
+* repo owner:  przemyslaw.cias@gmail.com
