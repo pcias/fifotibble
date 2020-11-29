@@ -141,7 +141,7 @@ gains <- function(qty, price) {
   return(g[])
 }
 
-
+#
 reLU <- function(x) {
   if(x < 0)
     return(0)
