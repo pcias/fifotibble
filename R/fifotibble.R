@@ -15,7 +15,7 @@
 #' This function receives movements quantities and prices (purchases/selss) and returns a tibble of open stocks per remaining valuation
 #' quants
 #' @param qty vector of quantities of movements (receipts positive, issues negative)
-#' @param price vector of prices of movements (should be same lenght as qty)
+#' @param price vector of prices of movements (should be same length as qty)
 #' @return tibbles: qty_movt, price, quant_stock
 #' @importFrom dplyr mutate
 #' @importFrom dplyr %>%
@@ -28,6 +28,7 @@
 #' @export
 fifotibble <- function(qty, price) {
 
+  if(length(qty) != length(price)) { stop("qty and prices must be same lenght")}
   x <- tibble(qty, price)
   #stock initialization
   #       qty price
@@ -42,15 +43,17 @@ fifotibble <- function(qty, price) {
   #        20     11    20
   #       -15     10    NA
 
-  x <- x %>% add_row(stock=x$qty[x$qty < 0] , .before = 1)
+
+  if(length(x$qty[x$qty<0]) > 0) {
+    #if there are any negatives (sells)
+    x <- x %>% add_row(stock=x$qty[x$qty < 0] , .before = 1)
   #       qty     price stock
   #        NA     NA    -15
   #        10     10    10
   #        20     11    20
   #       -15     10    NA
   #  qty > 0 - positions, qty < 0 sells event, qty = NA - technical row for calculation
-
-
+  }
   x <- x %>% mutate(workingopenstock = cumsum(stock))
 
   #closing of quants on sell
@@ -80,7 +83,7 @@ fifotibble <- function(qty, price) {
 
 
 
-#' Create fifo quants/valuation tibble
+#' Calculate gain on sell (= (qty * price) - cogs )
 #'
 #' This function receives a quant tibble (see \code{\link{fifotibble}} ) and simulates sell of a quantity at a price, returning resulting gain or loss
 #' @param fifotbl tibble of fifo valuation quants (result of fifotibble function)
@@ -97,6 +100,8 @@ fifotibble <- function(qty, price) {
 #' @export
 gainOnSell <- function(fifotbl, qtyToSell, price, verbose = F) {
 
+  if(qtyToSell < 0 && price < 0) {stop ("qtyToSell and price must not be negative")}
+
   names(fifotbl) <- c("qty","price","openstock","value")
   x <- fifotbl %>% filter(openstock>0)
   x <- x %>% add_column(remain_to_sell = 0) %>% add_row(remain_to_sell = qtyToSell, openstock = 0, .before = 1)
@@ -112,6 +117,26 @@ gainOnSell <- function(fifotbl, qtyToSell, price, verbose = F) {
 }
 
 
+#' Create gains vector //in progress not tested
+#'
+#' This function receives movements quantities and prices (purchases/selss) and returns a vector of capital gains (and NAs for qty>0)
+#' @param qty vector of quantities of movements (receipts positive, issues negative)
+#' @param price vector of prices of movements (should be same lenght as qty)
+#' @return vector of gains
+#' @export
+gains <- function(qty, price) {
+
+  if(length(qty) != length(price)) { stop("qty and prices must be same lengths")}
+
+  g<-numeric(length = length(qty))
+  for(i in seq(2, length(qty))) {
+    if(qty[i]<0) {  #only sale events
+       quants<-fifotibble(qty[1:i-1], price[1:i-1])
+       g[i] <- gainOnSell(quants, -1*qty[i], price[i])
+    }
+  }
+  return(g[])
+}
 
 
 reLU <- function(x) {

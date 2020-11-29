@@ -15,3 +15,12 @@ test_that("basic gainOnSell works", {
     e <- fifotibble(q[1:3], p[1:3])
     expect_equal(gainOnSell(e,30,11.7), 2.5)
 })
+
+test_that("gains calculator works", {
+  q <- c(10,-5,20,-15)
+  p <- c(10,12,12,10)
+  e <- gains(q,p)
+
+  expectede <- c(0,10,0,-20)
+  expect_equal(e, expectede)
+})

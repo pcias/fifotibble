@@ -2,7 +2,7 @@
 % Please edit documentation in R/fifotibble.R
 \name{gainOnSell}
 \alias{gainOnSell}
-\title{Create fifo quants/valuation tibble}
+\title{Calculate gain on sell (= (qty * price) - cogs )}
 \usage{
 gainOnSell(fifotbl, qtyToSell, price, verbose = F)
 }

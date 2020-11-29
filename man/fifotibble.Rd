@@ -9,7 +9,7 @@ fifotibble(qty, price)
 \arguments{
 \item{qty}{vector of quantities of movements (receipts positive, issues negative)}
 
-\item{price}{vector of prices of movements (should be same lenght as qty)}
+\item{price}{vector of prices of movements (should be same length as qty)}
 }
 \value{
 tibbles: qty_movt, price, quant_stock
