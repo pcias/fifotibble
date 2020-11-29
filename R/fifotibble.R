@@ -127,6 +127,9 @@ gainOnSell <- function(fifotbl, qtyToSell, price, verbose = F) {
 gains <- function(qty, price) {
 
   if(length(qty) != length(price)) { stop("qty and prices must be same lengths")}
+  if(length(qty) == 1) {
+    return(c(NA))
+  }
 
   g<-numeric(length = length(qty))
   for(i in seq(2, length(qty))) {
