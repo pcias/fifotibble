@@ -16,7 +16,7 @@
 #' quants
 #' @param qty vector of quantities of movements (receipts positive, issues negative)
 #' @param price vector of prices of movements (should be same length as qty)
-#' @return tibbles: qty_movt, price, quant_stock
+#' @return tibble: qty, price, openstock,value (only non-zero quants with stock)
 #' @importFrom dplyr mutate
 #' @importFrom dplyr %>%
 #' @importFrom dplyr if_else
@@ -25,6 +25,13 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr filter
 #' @importFrom dplyr ungroup
+#' @examples
+#' fifotibble(c(10,-5,20),c(10,12,12))
+#'   A tibble: 2 x 4
+#'qty price openstock value
+#'    <dbl> <dbl> <dbl> <dbl>
+#'1   10    10      5    50
+#'2   20    12     20    240
 #' @export
 fifotibble <- function(qty, price) {
 
@@ -97,8 +104,11 @@ fifotibble <- function(qty, price) {
 #' @importFrom tibble add_column
 #' @return tibble or single value of gain/loss
 #' @seealso \code{\link{fifotibble}}
+#' @examples
+#' gainOnSell(fifotibble(c(10,-5,20),c(10,12,12)),5,12)
+#' [1] 10
 #' @export
-gainOnSell <- function(fifotbl, qtyToSell, price, verbose = F) {
+gainOnSell <- function(fifotbl, qtyToSell, price, verbose = FALSE) {
 
   if(qtyToSell < 0 && price < 0) {stop ("qtyToSell and price must not be negative")}
 
@@ -123,6 +133,9 @@ gainOnSell <- function(fifotbl, qtyToSell, price, verbose = F) {
 #' @param qty vector of quantities of movements (receipts positive, issues negative)
 #' @param price vector of prices of movements (should be same lenght as qty)
 #' @return vector of gains
+#' @examples
+#' gains(c(10,-5,20,-15),c(10,12,12,10))
+#'   [1]   0  10   0 -20
 #' @export
 gains <- function(qty, price) {
 

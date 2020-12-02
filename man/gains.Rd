@@ -17,3 +17,7 @@ vector of gains
 \description{
 This function receives movements quantities and prices (purchases/selss) and returns a vector of capital gains (and NAs for qty>0)
 }
+\examples{
+gains(c(10,-5,20,-15),c(10,12,12,10))
+  [1]   0  10   0 -20
+}
