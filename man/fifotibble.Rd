@@ -12,9 +12,17 @@ fifotibble(qty, price)
 \item{price}{vector of prices of movements (should be same length as qty)}
 }
 \value{
-tibbles: qty_movt, price, quant_stock
+tibble: qty, price, openstock,value (only non-zero quants with stock)
 }
 \description{
 This function receives movements quantities and prices (purchases/selss) and returns a tibble of open stocks per remaining valuation
 quants
+}
+\examples{
+fifotibble(c(10,-5,20),c(10,12,12))
+  A tibble: 2 x 4
+qty price openstock value
+   <dbl> <dbl> <dbl> <dbl>
+1   10    10      5    50
+2   20    12     20    240
 }

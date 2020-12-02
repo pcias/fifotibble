@@ -4,7 +4,7 @@
 \alias{gainOnSell}
 \title{Calculate gain on sell (= (qty * price) - cogs )}
 \usage{
-gainOnSell(fifotbl, qtyToSell, price, verbose = F)
+gainOnSell(fifotbl, qtyToSell, price, verbose = FALSE)
 }
 \arguments{
 \item{fifotbl}{tibble of fifo valuation quants (result of fifotibble function)}
@@ -20,6 +20,10 @@ tibble or single value of gain/loss
 }
 \description{
 This function receives a quant tibble (see \code{\link{fifotibble}} ) and simulates sell of a quantity at a price, returning resulting gain or loss
+}
+\examples{
+gainOnSell(fifotibble(c(10,-5,20),c(10,12,12)),5,12)
+[1] 10
 }
 \seealso{
 \code{\link{fifotibble}}
