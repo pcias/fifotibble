@@ -17,11 +17,11 @@
 #' @importFrom dplyr ungroup
 #' @examples
 #' fifotibble(c(10,-5,20),c(10,12,12))
-#'   A tibble: 2 x 4
-#'qty price openstock value
-#'    <dbl> <dbl> <dbl> <dbl>
-#'1   10    10      5    50
-#'2   20    12     20    240
+#'#   A tibble: 2 x 4
+#'#qty price openstock value
+#'#    <dbl> <dbl> <dbl> <dbl>
+#'#1   10    10      5    50
+#'#2   20    12     20    240
 #' @export
 fifotibble <- function(qty, price) {
 
@@ -96,7 +96,7 @@ fifotibble <- function(qty, price) {
 #' @seealso \code{\link{fifotibble}}
 #' @examples
 #' gainOnSell(fifotibble(c(10,-5,20),c(10,12,12)),5,12)
-#' [1] 10
+#' #[1] 10
 #' @export
 gainOnSell <- function(fifotbl, qtyToSell, price, verbose = FALSE) {
 
@@ -125,7 +125,7 @@ gainOnSell <- function(fifotbl, qtyToSell, price, verbose = FALSE) {
 #' @return vector of gains
 #' @examples
 #' gains(c(10,-5,20,-15),c(10,12,12,10))
-#'   [1]   0  10   0 -20
+#' #  [1]   0  10   0 -20
 #' @export
 gains <- function(qty, price) {
 

@@ -23,7 +23,7 @@ This function receives a quant tibble (see \code{\link{fifotibble}} ) and simula
 }
 \examples{
 gainOnSell(fifotibble(c(10,-5,20),c(10,12,12)),5,12)
-[1] 10
+#[1] 10
 }
 \seealso{
 \code{\link{fifotibble}}
