@@ -15,6 +15,8 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr filter
 #' @importFrom dplyr ungroup
+#' @importFrom dplyr enquo
+#' @importFrom dplyr bind_rows
 #' @examples
 #' fifotibble(c(10,-5,20),c(10,12,12))
 #'#   A tibble: 2 x 4
@@ -25,7 +27,7 @@
 #' @export
 fifotibble <- function(qty, price) {
 
-  if(length(qty) != length(price)) { stop("qty and prices must be same lenght")}
+  if(length(qty) != length(price)) { stop("qty and prices must be same length")}
   x <- tibble(qty, price)
   #stock initialization
   #       qty price
@@ -45,6 +47,7 @@ fifotibble <- function(qty, price) {
     #if there are any negatives (sells)
     x <- x %>% add_row(stock=x$qty[x$qty < 0] , .before = 1)
   #       qty     price stock
+  #        NA     NA    -5
   #        NA     NA    -15
   #        10     10    10
   #        20     11    20
@@ -67,7 +70,8 @@ fifotibble <- function(qty, price) {
   #6   -15    10   -15              -10         0     0
 
 
-  x <- x %>% mutate(cost_revenues = (openstock-qty)*price)
+  #not tested, likely does not work
+  #x <- x %>% mutate(cost_revenues = (openstock-qty)*price)
 
 
   #cleanup - return only open quants
@@ -153,6 +157,47 @@ reLU <- function(x) {
 }
 
 
+#' Tidyverse style fifo transformation
+#'
+#' Retains only open quant rows, any extra columns retained
+#'
+#' @param .data
+#' @param quantities column for quantities vector (+receipts , -issues)
+#' @param prices column for prices vector
+#' @return a tibble of open quants of stock positions other columns retained as possible in; added columns: openstock, value
+#' @examples
+#' @export
+tidyfifo <- function(.data, quantities, prices) {
+
+
+  quantitieseq <- enquo(quantities)
+  priceseq <- enquo(prices)
+
+  x <- .data %>% mutate(stock = ifelse(!!quantitieseq > 0, !!quantitieseq, 0))
+
+
+  #if there are any negatives (sells), quantites put into negative stock
+  xnegatives <- x%>%filter(!!quantitieseq < 0) %>% mutate(stock=!!quantitieseq) %>% select(stock)
+  x<-bind_rows(xnegatives,x)
+
+  x <- x %>% mutate(workingopenstock = cumsum(stock))
+
+  #closing of quants on sell
+  #set openstock to value <0;stock>
+  x <- x %>% mutate(openstock  = if_else(workingopenstock < 0 , 0 ,if_else(workingopenstock > stock, stock, workingopenstock)))
+  x <- x  %>% mutate(value = openstock * !!priceseq)
+
+
+  #cleanup - return only open quants
+  x <- x %>% select(! c(workingopenstock,stock)) %>% filter(!is.na(!!quantitieseq) & openstock > 0 )
+
+
+  return(x)
+}
+
+
+
+
 ## You can learn more about package authoring with RStudio at:
 #
 #   http://r-pkgs.had.co.nz/
@@ -162,3 +207,7 @@ reLU <- function(x) {
 #   Install Package:           'Cmd + Shift + B'
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
+
+#testdata<-tibble(q1=c(10,-5,20,-15), p1=c(10,12,12,10), id=1:4)
+#testdata%>%tidyfifo(quantities = q1, prices = p1)
+

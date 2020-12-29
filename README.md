@@ -1,6 +1,6 @@
 # README #
 
-This is an R package with simple fifo valution helpers
+This is an R package with simple fifo valuation helpers
 
 ### What is this repository for? ###
 
@@ -14,9 +14,13 @@ This is an R package with simple fifo valution helpers
 
 ### Contribution guidelines ###
 
-* There are basic unit tests far from final
-* The the main 'fifotibble' function is extesively step-by-step commented to show by example its working 
+* 
+* The the main function to use is 'tidyfifo', but the 'fifotibble' is extesively step-by-step commented to show by example its work 
+* The most useful e.g. for stock capital gains calculation is the gainOnSell function, careful with execution times, there is some R 
+*    iteration there
 * See also the tests as they demonstrate the basic usage
+* TODO: cleanup sicne both 'tidyfifo' and 'fifotibble' actually implement same algorithm kind of twice
+
 
 ### Who do I talk to? ###
 
