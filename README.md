@@ -13,7 +13,7 @@ This is an R package with simple fifo valuation helpers
 
 ### How do I get set up? ###
 
-* Just install
+* Just install -
 
 ### Contribution guidelines ###
 
