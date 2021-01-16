@@ -208,6 +208,5 @@ tidyfifo <- function(.data, quantities, prices) {
 #   Check Package:             'Cmd + Shift + E'
 #   Test Package:              'Cmd + Shift + T'
 
-#testdata<-tibble(q1=c(10,-5,20,-15), p1=c(10,12,12,10), id=1:4)
-#testdata%>%tidyfifo(quantities = q1, prices = p1)
+
 

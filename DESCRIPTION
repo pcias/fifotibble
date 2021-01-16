@@ -1,6 +1,6 @@
 Package: fifovaluation
 Type: Package
-Title: Simple tools for managing fifo valuation of series
+Title: Simple Tools for Managing Fifo Valuation of Series
 Version: 0.1.0
 Author: Przemek Cias
 Maintainer: Przemek Cias <przemyslaw.cias@gmail.com>
