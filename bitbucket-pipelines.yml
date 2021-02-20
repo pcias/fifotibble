@@ -4,4 +4,4 @@ pipelines:
   default:
     - step:
         script:
-          - git push --mirror git@github.com:pcias/dgr_analyzer.git
+          - git push --mirror git@github.com:pcias/fifotibble.git
